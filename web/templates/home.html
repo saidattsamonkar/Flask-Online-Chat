@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}Discussions{% endblock %} {% block content
+%}
+</br>
+<h1 align="center" style="font-family:verdana;">Chat</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in nt %}
+  <li class="list-group-item" >
+    <h5>
+    {{ note.data }}
+    </h5>
+
+
+
+
+    {% if note.user_id == user.id %}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {% endif %}
+
+
+
+
+
+    {% if note.user_id == user.id %}
+    <h6 style="font-size:0.8vw; color:grey;" >
+    Me
+    </h6>
+    <h6 style="font-size:0.7vw; color:grey;">
+    {{ note.date }}
+    </h6>
+
+
+    {% else %}
+    {% for usr in users %}
+    {% if usr.id == note.user_id %}
+    <h6 style="font-size:0.8vw; color:grey;">
+      {{ usr.first_name }}
+    </h6>
+    <h6 style="font-size:0.7vw; color:grey;">
+    {{ note.date }}
+    </h6>
+
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-dark">Send</button>
+  </div>
+</form>
+{% endblock %}
